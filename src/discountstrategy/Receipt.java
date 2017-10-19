@@ -2,6 +2,7 @@ package discountstrategy;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,12 +65,12 @@ public class Receipt {
         this.db = db;
     }
     
-    public void addItemToSale(String productId, int qty) {
+    public final void addItemToSale(String productId, int qty) {
        LineItem item = new LineItem(productId, qty, db);
        addToArray(item);
     }
     
-    private void addToArray(LineItem item) {
+    private final void addToArray(LineItem item) {
         LineItem[] tempItems = new LineItem[lineItems.length + 1];
         System.arraycopy(lineItems, 0, tempItems, 0, lineItems.length);
         tempItems[lineItems.length] = item;
@@ -77,6 +78,10 @@ public class Receipt {
     }
     
     public final void formatHeader() {
+        JOptionPane.showMessageDialog(null, RECEIPT_ID + receiptId + NEWLINE + CUSTOMER_ID +
+            getCustomer().getCustomerId() + NEWLINE + WELCOME_MESSAGE + NEWLINE + 
+                PRODUCT_ID + TAB + PRODUCT_NAME + TAB + TAB
+            + QTY + TAB + PRICE + TAB + DISCOUNT_AMT + TAB + SUBTOTAL);
          System.out.println(RECEIPT_ID + receiptId + NEWLINE + CUSTOMER_ID +
             getCustomer().getCustomerId() + NEWLINE + WELCOME_MESSAGE + NEWLINE);
         System.out.println(PRODUCT_ID + TAB + PRODUCT_NAME + TAB + TAB
@@ -86,6 +91,10 @@ public class Receipt {
     
     public final void formatLineItems() {
         for (LineItem li : lineItems) {
+            JOptionPane.showMessageDialog(null, li.getProduct().getProductId() + TAB 
+                    + li.getProduct().getName() + TAB + li.getQuantity() + TAB
+                    + li.getProduct().getUnitCost() + TAB + OPEN_PAREN + li.getSavings() + CLOSED_PAREN
+                    + TAB + TAB + li.getDiscountAmt());
             System.out.println(li.getProduct().getProductId() + TAB 
                     + li.getProduct().getName() + TAB + li.getQuantity() + TAB
                     + li.getProduct().getUnitCost() + TAB + OPEN_PAREN + li.getSavings() + CLOSED_PAREN
@@ -101,6 +110,8 @@ public class Receipt {
             subTotal += li.getDiscountAmt();
             discountTotal += li.getSavings();
         }
+        JOptionPane.showMessageDialog(null, TOTAL + " " + DOLLAR_SIGN + subTotal 
+                + NEWLINE + SAVINGS + " " + DOLLAR_SIGN + discountTotal);
         System.out.println(TOTAL + TAB + TAB + TAB + TAB + TAB + TAB + DOLLAR_SIGN + subTotal);
         System.out.println(SAVINGS + TAB + TAB + TAB + TAB + TAB + DOLLAR_SIGN + discountTotal);
         System.out.println(NEWLINE);

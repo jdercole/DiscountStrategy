@@ -27,21 +27,21 @@ public class POSTerminal {
         return db;
     }
           
-    public void startNewSale(String customerId) {
+    public final void startNewSale(String customerId) {
         receipt = new Receipt(customerId, db);
     }
 
-    public void addItemToSale(String productId, int qty) {
+    public final void addItemToSale(String productId, int qty) {
        receipt.addItemToSale(productId, qty);
     }
 
-    private void generateReceipt() {
+    private final void generateReceipt() {
        receipt.formatHeader();
        receipt.formatLineItems();
        receipt.formatTotals();
     }
     
-    public void endSale() {
+    public final void endSale() {
         generateReceipt();
     }
 }

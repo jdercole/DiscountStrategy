@@ -14,15 +14,15 @@ public class LineItem {
         setQuantity(quantity);
     }
     
-    public double getSubTotal() {
+    public final double getSubTotal() {
         return product.getUnitCost() * quantity;
     }
     
-    public double getDiscountAmt() {
+    public final double getDiscountAmt() {
         return product.getDiscountAmt(quantity);
     }
     
-    public double getSavings() {
+    public final double getSavings() {
         return product.getDiscountStrategy().calculateMoneySaved(quantity, product.getUnitCost());
     }
 

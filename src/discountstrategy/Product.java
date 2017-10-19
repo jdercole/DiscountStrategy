@@ -27,6 +27,9 @@ public class Product {
     }
 
     public final void setProductId(String productId) {
+        if (productId == null || productId.length() == 0) {
+            throw new IllegalArgumentException("Product ID must be set!");
+        }
         this.productId = productId;
     }
 
@@ -35,6 +38,9 @@ public class Product {
     }
 
     public final void setName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null!");
+        }
         this.name = name;
     }
 
@@ -43,6 +49,9 @@ public class Product {
     }
 
     public final void setUnitCost(double unitCost) {
+        if (unitCost < 0) {
+            throw new IllegalArgumentException("Unit cost cannot be less than zero!");
+        }
         this.unitCost = unitCost;
     }
 
@@ -51,6 +60,9 @@ public class Product {
     }
 
     public final void setDiscountStrategy(DiscountStrategy discountStrategy) {
+        if (discountStrategy == null) {
+            throw new IllegalArgumentException("Discount strategy cannot be null!");
+        }
         this.discountStrategy = discountStrategy;
     }
     
