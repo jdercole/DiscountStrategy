@@ -51,14 +51,14 @@ public class Receipt {
         return outputStrategy;
     }
     
-    public final void setOutputStrategy(OutputStrategy outputStrategy) {
+    public final void setOutputStrategy(OutputStrategy outputStrategy) throws IllegalArgumentException  {
         if (outputStrategy == null) {
             throw new IllegalArgumentException("Database must not be null!");
         }
         this.outputStrategy = outputStrategy;
     }
 
-    public final void setDb(DatabaseStrategy db) {
+    public final void setDb(DatabaseStrategy db) throws IllegalArgumentException {
         if (db == null) {
             throw new IllegalArgumentException("Database must not be null!");
         }

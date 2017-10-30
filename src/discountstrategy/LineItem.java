@@ -30,7 +30,7 @@ public class LineItem {
         return product;
     }
 
-    public final void setProduct(Product product) {
+    public final void setProduct(Product product) throws IllegalArgumentException  {
         if (product == null) {
             throw new IllegalArgumentException("Product must be provided!");
         }
@@ -41,7 +41,7 @@ public class LineItem {
         return quantity;
     }
 
-    public final void setQuantity(int quantity) {
+    public final void setQuantity(int quantity) throws IllegalArgumentException  {
         if (quantity < 0) {
             throw new IllegalArgumentException("Quantity cannot be less than 0!");
         }

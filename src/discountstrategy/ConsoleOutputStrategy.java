@@ -14,7 +14,7 @@ public class ConsoleOutputStrategy implements OutputStrategy {
         
     }
 
-    private void setReceipt(Receipt receipt) {
+    private void setReceipt(Receipt receipt) throws IllegalArgumentException  {
         if (receipt == null) {
             throw new IllegalArgumentException("Receipt must be set!"); 
         }

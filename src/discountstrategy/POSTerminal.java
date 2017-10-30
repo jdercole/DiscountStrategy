@@ -16,7 +16,7 @@ public class POSTerminal {
         return receipt;
     }
 
-    public final void setDb(DatabaseStrategy db) {
+    public final void setDb(DatabaseStrategy db) throws IllegalArgumentException {
         if (db == null) {
             throw new IllegalArgumentException("Database must be provided!");
         }

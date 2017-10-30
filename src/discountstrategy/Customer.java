@@ -21,7 +21,7 @@ public class Customer {
         return customerId;
     }
 
-    public final void setCustomerId(String customerId) {
+    public final void setCustomerId(String customerId) throws IllegalArgumentException  {
         if (customerId == null) {
             throw new IllegalArgumentException("CustomerID must not be null!");
         }
@@ -32,7 +32,7 @@ public class Customer {
         return firstName;
     }
 
-    public final void setFirstName(String firstName) {
+    public final void setFirstName(String firstName) throws IllegalArgumentException  {
         if (firstName.contains("1-9") || firstName.length() == 0 || firstName == null) {
             throw new IllegalArgumentException("Invalid value entered!");
         }
@@ -43,7 +43,7 @@ public class Customer {
         return lastName;
     }
 
-    public final void setLastName(String lastName) {
+    public final void setLastName(String lastName) throws IllegalArgumentException  {
         if (lastName.contains("1-9") || lastName.length() == 0 || lastName == null) {
             throw new IllegalArgumentException("Invalid value entered!");
         }

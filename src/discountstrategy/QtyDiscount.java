@@ -18,7 +18,7 @@ public class QtyDiscount implements DiscountStrategy {
         return percentOff;
     }
 
-    public final void setPercentOff(double percentOff) {
+    public final void setPercentOff(double percentOff) throws IllegalArgumentException {
         if (percentOff < 0 || percentOff > 1) {
             throw new IllegalArgumentException("Must be a percentage between 0 and 1!");
         } else {
@@ -30,7 +30,7 @@ public class QtyDiscount implements DiscountStrategy {
         return minQty;
     }
 
-    public final void setMinQty(double minQty) {
+    public final void setMinQty(double minQty) throws IllegalArgumentException  {
         if (minQty < 0) {
             throw new IllegalArgumentException("Minimum quantity must be greater than 0!");
         }

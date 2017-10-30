@@ -16,17 +16,26 @@ public class PercentOffDiscount implements DiscountStrategy {
         return percentOff;
     }
 
-    public final void setPercentOff(double percentOff) {
+    public final void setPercentOff(double percentOff) throws IllegalArgumentException {
+        if (percentOff > 0.99 || percentOff < 0) {
+            throw new IllegalArgumentException("Percentage must be greater than 0 and less than 1!");
+        }
         this.percentOff = percentOff;
     }
     
     @Override
     public double calculateDiscountedPrice(int qty, double unitCost) {
+        if (qty < 0 || unitCost < 0) {
+            throw new IllegalArgumentException("Unit cost and quantity both should be positive!");
+        }
         return (unitCost * qty) - (unitCost * qty * percentOff);
     }
 
     @Override
     public double calculateMoneySaved(int qty, double unitCost) {
+        if (unitCost < 0 || qty < 0) {
+            throw new IllegalArgumentException("Unit cost and quantity both should be positive values!");
+        }
         return (unitCost * qty) * percentOff;
     }
     
