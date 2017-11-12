@@ -1,6 +1,8 @@
 
 package discountstrategy;
 
+import java.util.Objects;
+
 /**
  *
  * @author Jenna
@@ -50,5 +52,24 @@ public class Customer {
         this.lastName = lastName;
     }
 
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Customer other = (Customer) obj;
+        if (!Objects.equals(this.customerId, other.customerId)) {
+            return false;
+        }
+        return true;
+    }
+
+    
     
 }

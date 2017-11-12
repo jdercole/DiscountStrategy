@@ -1,7 +1,14 @@
 package discountstrategy;
 
+import edu.wctc.advjava.jrd.datetime.DateUtilities;
+import edu.wctc.advjava.jrd.datetime.DateValidator;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,6 +16,7 @@ import javax.swing.JOptionPane;
  * @author Jenna
  */
 public class Receipt {
+    public final String DATE = "DATE: ";
     public final String RECEIPT_ID = "RECEIPT_ID: ";
     public final String NEWLINE = "\n";
     public final String TAB = "\t";
@@ -27,15 +35,18 @@ public class Receipt {
     public final String CLOSED_PAREN = ")";
     public static int receiptId;
     private Customer customer;
-    private LineItem[] lineItems;
+    //private LineItem[] lineItems;
+    private List<LineItem> lineItems;
     private DatabaseStrategy db;
     private OutputStrategy outputStrategy;
+    private DateUtilities dateUtility;
 
     public Receipt(String customerId, DatabaseStrategy db) {
+        setDateUtility(new DateUtilities(new DateValidator()));
         setDb(db);
         receiptId++;
         customer = db.findCustomerById(customerId);
-        lineItems= new LineItem[0];
+        lineItems= new ArrayList<>();
         NumberFormat df = new DecimalFormat("#.00"); 
     }
     
@@ -49,6 +60,17 @@ public class Receipt {
     
     public final OutputStrategy getOutputStrategy() {
         return outputStrategy;
+    }
+
+    public final DateUtilities getDateUtility() {
+        return dateUtility;
+    }
+
+    public final void setDateUtility(DateUtilities dateUtility) {
+        if (dateUtility == null) {
+            throw new IllegalArgumentException("Date utility class cannot be null!");
+        }
+        this.dateUtility = dateUtility;
     }
     
     public final void setOutputStrategy(OutputStrategy outputStrategy) throws IllegalArgumentException  {
@@ -67,22 +89,28 @@ public class Receipt {
     
     public final void addItemToSale(String productId, int qty) {
        LineItem item = new LineItem(productId, qty, db);
-       addToArray(item);
+       //addToArray(item);
+       addToList(item);
     }
     
-    private final void addToArray(LineItem item) {
-        LineItem[] tempItems = new LineItem[lineItems.length + 1];
-        System.arraycopy(lineItems, 0, tempItems, 0, lineItems.length);
-        tempItems[lineItems.length] = item;
-        lineItems = tempItems;
+    private void addToList(LineItem lineItem) {
+        lineItems.add(lineItem);
     }
+    
+//    private final void addToArray(LineItem item) {
+//        LineItem[] tempItems = new LineItem[lineItems.length + 1];
+//        System.arraycopy(lineItems, 0, tempItems, 0, lineItems.length);
+//        tempItems[lineItems.length] = item;
+//        lineItems = tempItems;
+//    }
     
     public final void formatHeader() {
-        JOptionPane.showMessageDialog(null, RECEIPT_ID + receiptId + NEWLINE + CUSTOMER_ID +
+        JOptionPane.showMessageDialog(null, DATE + this.getDateUtility().getCurrentDateTime() + NEWLINE + RECEIPT_ID + receiptId + NEWLINE + CUSTOMER_ID +
             getCustomer().getCustomerId() + NEWLINE + WELCOME_MESSAGE + NEWLINE + 
                 PRODUCT_ID + TAB + PRODUCT_NAME + TAB + TAB
             + QTY + TAB + PRICE + TAB + DISCOUNT_AMT + TAB + SUBTOTAL);
-         System.out.println(RECEIPT_ID + receiptId + NEWLINE + CUSTOMER_ID +
+         System.out.println(DATE + this.getDateUtility().getCurrentDateTime() + 
+            NEWLINE + RECEIPT_ID + receiptId + NEWLINE + CUSTOMER_ID +
             getCustomer().getCustomerId() + NEWLINE + WELCOME_MESSAGE + NEWLINE);
         System.out.println(PRODUCT_ID + TAB + PRODUCT_NAME + TAB + TAB
             + QTY + TAB + PRICE + TAB + DISCOUNT_AMT + TAB + SUBTOTAL);
@@ -116,5 +144,9 @@ public class Receipt {
         System.out.println(SAVINGS + TAB + TAB + TAB + TAB + TAB + DOLLAR_SIGN + discountTotal);
         System.out.println(NEWLINE);
     }
+
+ 
+    
+    
       
 }

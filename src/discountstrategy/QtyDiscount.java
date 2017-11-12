@@ -60,5 +60,29 @@ public class QtyDiscount implements DiscountStrategy {
         }
         return moneySaved;
     }
+
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final QtyDiscount other = (QtyDiscount) obj;
+        if (Double.doubleToLongBits(this.percentOff) != Double.doubleToLongBits(other.percentOff)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.minQty) != Double.doubleToLongBits(other.minQty)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

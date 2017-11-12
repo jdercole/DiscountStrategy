@@ -1,6 +1,8 @@
 
 package discountstrategy;
 
+import java.util.Objects;
+
 /**
  *
  * @author Jenna
@@ -47,6 +49,29 @@ public class LineItem {
         }
         this.quantity = quantity;
     }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LineItem other = (LineItem) obj;
+        if (this.quantity != other.quantity) {
+            return false;
+        }
+        if (!Objects.equals(this.product, other.product)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     
 }

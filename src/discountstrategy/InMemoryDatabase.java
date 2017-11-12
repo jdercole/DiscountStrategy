@@ -1,24 +1,25 @@
 
 package discountstrategy;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author Jenna
  */
 public class InMemoryDatabase implements DatabaseStrategy {
-    private Customer[] customers = {
-      new Customer("A1", "Joe", "Johansen"),
-      new Customer("B2", "Jen", "Smith"),
-      new Customer("C4", "Adam", "Tyson")
-    };
-
-    private Product[] products = {
-        new Product("A1013", "Glitter Gel Pen           ", 3.99, new NoDiscount()),
-        new Product("U6781", "Fanta Soda - Grape        ", 1.99, new QtyDiscount(0.50, 2)),
-        new Product("X0678", "Cuisinart Food Dehydrator", 89.99, new FlatAmountDiscount(10.00)),
-        new Product("D3110", "Men's Cabled Sweater      ", 59.99, new PercentOffDiscount(0.15)),
-        new Product("H4496", "Lawn Fertilizer - 50 lbs  ", 16.99, new NoDiscount())
-    };
+    private List<Customer> customers = new ArrayList<>(Arrays.asList(new Customer("A1", "Joe", "Johansen"), 
+            new Customer("B2", "Jen", "Smith"), 
+            new Customer("C4", "Adam", "Tyson")));
+    
+    private List<Product> products = new ArrayList<>(Arrays.asList(new Product("A1013", "Glitter Gel Pen           ", 3.99, new NoDiscount()), 
+           new Product("U6781", "Fanta Soda - Grape        ", 1.99, new QtyDiscount(0.50, 2)),
+           new Product("X0678", "Cuisinart Food Dehydrator", 89.99, new FlatAmountDiscount(10.00)),
+           new Product("D3110", "Men's Cabled Sweater      ", 59.99, new PercentOffDiscount(0.15)),
+           new Product("H4496", "Lawn Fertilizer - 50 lbs  ", 16.99, new NoDiscount())
+         ));
 
     @Override
     public Customer findCustomerById(String customerId) {

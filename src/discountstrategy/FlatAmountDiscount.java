@@ -39,5 +39,25 @@ public class FlatAmountDiscount implements DiscountStrategy {
         }
         return (unitCost * qty) - ((unitCost * qty) - discountAmount);
     }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FlatAmountDiscount other = (FlatAmountDiscount) obj;
+        if (Double.doubleToLongBits(this.discountAmount) != Double.doubleToLongBits(other.discountAmount)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }
